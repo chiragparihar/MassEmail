@@ -1,7 +1,11 @@
-module.exports = {
-    googleClientID : '897311738626-17fla566e22312eovuhvlknepdim44am.apps.googleusercontent.com',
-    googleClientSecret : 'ATeL19QuxUZmAsOPKgOj1TXc',
-    mongoURI:"mongodb+srv://chiragparihar:yA753631@massemail.lbhja.mongodb.net/users?retryWrites=true&w=majority"
+//keys.js - figure out credential to return
+if (process.env.NODE_ENV === 'production'){
+
+    module.exports = require('./prod');
+
+}
+else{
     
-    
-};
+    module.exports= require('./dev');
+
+}
