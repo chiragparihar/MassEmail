@@ -2,10 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 require("./models/Users");
+require("./models/Surveys");
 require("./services/passport");
 const passport = require('passport');
 const app = express();
 const keyes = require("./config/keys");
+mongoose.Promise = global.Promise;
 mongoose.connect(keyes.mongoURI);
 app.use(
   cookieSession({
@@ -18,6 +20,8 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
+
 
 if(process.env.NODE_ENV === 'production'){
   //express will serve up production assets
