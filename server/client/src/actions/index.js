@@ -1,11 +1,25 @@
 import axios from 'axios';
-import {FETCH_USER} from './types';
+
+export const changeLogin = shouldBeLoggedIn =>{
+    return{
+        type: 'change_auth',
+        payload:shouldBeLoggedIn
+    }
+
+}
 
 export const fetchUser = () => async dispatch => {
         const res = await axios.get('/api/current_user')
-        dispatch({type: FETCH_USER, payload: res.data }); 
+        dispatch({type: 'fetch_user', payload: res.data }); 
 }
 export const handleToken = (token) => async dispatch =>{
-    const res = await axios.post('api/stripe',token);
-    dispatch({type: FETCH_USER , payload: res.data});
+    const res = await axios.post('/api/stripe',token);
+    dispatch({type: 'fetch_user' , payload: res.data});
+}
+
+export const submitSurvey = (Values,history)=> async dispatch =>{
+  
+    const res = await axios.post('/api/surveys',Values);
+    history.push('/surveys');
+    dispatch({type: 'fetch_user',payload:res.data})
 }
